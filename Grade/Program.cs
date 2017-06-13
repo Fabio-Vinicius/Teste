@@ -11,34 +11,52 @@ namespace Grade
         static void Main(string[] args)
         {
 
-            GradeBook book = new GradeBook();
+            IGradeTracker book = CreateGradeBook();
 
-            book.NameChanged += onNameChanged;
-
-            book.Name = "String Variable";
-            book.Name = "Alterado";
-
-            book.AddGrade(91);
-            book.AddGrade(89.5f);
-            book.AddGrade(75);
+            AddGrades(book);
+           // book.WriteGrades(Console.Out);
 
             GradeStatistics stats = book.ComputeStatistics();
-
-            Console.WriteLine(book.Name);
             WriteResult("Average", stats.AverageGrade);
             WriteResult("Highest", stats.HighestGrade);
             WriteResult("Lowest ", stats.LowestGrade);
+            WriteResult("Grade", stats.LetterGrade);
+
         }
+
+        public static IGradeTracker CreateGradeBook()
+        {
+            return new ThrowAawayGradeBook();
+        }
+
+        private static void AddGrades(IGradeTracker book)
+        {
+            book.AddGrade(91);
+            book.AddGrade(89.5f);
+            book.AddGrade(75);
+        }
+
+        private static void GetBookName (IGradeTracker book)
+        {
+            try
+            {
+                Console.WriteLine("Enter a name");
+                book.Name = Console.ReadLine();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         static void WriteResult(string description, float result)
         {
             Console.WriteLine($"{description}: {result:F2}", description, result);
         }
 
-        static void onNameChanged(object sender, NameChangedEventArgs args)
+        static void WriteResult(string description, string result)
         {
-            Console.WriteLine($"Name change from {args.ExistingName} to {args.NewName}");
+            Console.WriteLine($"{description}: {result}", description, result);
         }
-
-       
     }
 }

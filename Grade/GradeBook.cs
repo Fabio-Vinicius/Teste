@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Grade
 {
-    public class GradeBook
+    public class GradeBook : GradeTracker
     {
         public GradeBook()
         {
@@ -14,7 +15,7 @@ namespace Grade
             grades = new List<float>();
         }
 
-        public GradeStatistics ComputeStatistics()
+        public override GradeStatistics ComputeStatistics()
         {
             GradeStatistics stats = new GradeStatistics();
 
@@ -30,38 +31,19 @@ namespace Grade
             return stats;
         }
 
-        public void AddGrade(float grade)
+        public override void AddGrade(float grade)
         {
             grades.Add(grade);
         }
 
-        public string Name
+        public override void WriteGrades(TextWriter destination)
         {
-            get
+            for (int i = 0; i < grades.Count; i++)
             {
-                return _name;
-            }
-
-            set
-            {
-                if (!String.IsNullOrEmpty(value))
-                {
-                    if(_name != value)
-                    {
-                        NameChangedEventArgs args = new NameChangedEventArgs();
-                        args.ExistingName = _name;
-                        args.NewName = value;
-
-                        NameChanged(this, args);
-                    }
-                    _name = value;
-                }
+                destination.WriteLine(grades[i]);
             }
         }
 
-        public event NameChangedDelegate NameChanged;
-
-        private string _name;
-        private List<float> grades;
+        protected List<float> grades;
     }
 }
