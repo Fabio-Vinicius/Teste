@@ -6,8 +6,12 @@
         xmlns:local="clr-namespace:FutureProofing"
         mc:Ignorable="d"
         Title="Future Proof" Height="490" Width="525">
-    
-    <Grid>
+
+    <StackPanel Height="100%" HorizontalAlignment="Left">
+        <Button Name="btConc" Margin="5">Concrete</Button>
+        <Button Name="btInt" Margin="5">Interface</Button>
+        <Button Name="btClean" Margin="5">Clean</Button>
         
-    </Grid>
+    </StackPanel>
+    <ListBoxItem Name="PersonList"/>
 </Window>
