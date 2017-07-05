@@ -5,13 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FutureProofing"
         mc:Ignorable="d"
-        Title="Future Proof" Height="490" Width="525">
+        Title="Future Proof" Height="400" Width="400">
 
-    <StackPanel Height="100%" HorizontalAlignment="Left">
-        <Button Name="btConc" Margin="5">Concrete</Button>
-        <Button Name="btInt" Margin="5">Interface</Button>
-        <Button Name="btClean" Margin="5">Clean</Button>
-        
-    </StackPanel>
-    <ListBoxItem Name="PersonList"/>
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Left" Margin="10,0">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="0,0,0,5" />
+                </Style>
+            </StackPanel.Resources>
+            <Button Height="80" Width="50" Name="btnServiceRep" >Service </Button>
+            <Button Height="80" Width="50" Name="btnCsvRep">CSV</Button>
+            <Button Height="80" Width="50" Name="btnSqlRep">SQL</Button>
+            <Button Height="80" Width="50" Name="btnClear">Clear</Button>
+        </StackPanel>
+        <ListBox Name="PersonList" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Title}" />
+                        <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Completion}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
 </Window>

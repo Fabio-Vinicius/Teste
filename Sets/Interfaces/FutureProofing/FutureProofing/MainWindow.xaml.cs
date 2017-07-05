@@ -37,7 +37,7 @@ namespace FutureProofing
 
         private void ClearListBox()
         {
-            PersonListBox.Items.Clear();
+            PersonList.Items.Clear();
         }
     }
 }
